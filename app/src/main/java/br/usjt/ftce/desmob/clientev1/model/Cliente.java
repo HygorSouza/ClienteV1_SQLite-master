@@ -3,7 +3,7 @@ package br.usjt.ftce.desmob.clientev1.model;
 import java.io.Serializable;
 
 /**
- * Created by asbonato on 03/03/17.
+ * Created by Celso on 03/03/17.
  */
 
 public class Cliente implements Serializable, Comparable<Cliente> {

@@ -3,7 +3,7 @@ package br.usjt.ftce.desmob.clientev1.model;
 import android.provider.BaseColumns;
 
 /**
- * Created by asbonato on 9/19/15.
+ * Created by Hygor on 9/19/15.
  */
 public class ClienteContract {
     public ClienteContract(){}

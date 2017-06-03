@@ -24,7 +24,6 @@ public class ListarClientesActivity extends Activity {
         listView = (ListView) findViewById(R.id.lista_de_clientes);
         Intent intent = getIntent();
         ArrayList<Cliente> clientes = (ArrayList<Cliente>)intent.getSerializableExtra(MainActivity.LISTA);
-        System.out.println("Clientes: "+clientes);
         lista = clientes.toArray(new Cliente[0]);
 
         BaseAdapter adapter = new ClienteAdapter(this, lista);

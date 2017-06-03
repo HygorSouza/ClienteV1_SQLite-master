@@ -8,7 +8,7 @@ import android.database.sqlite.SQLiteDatabase;
 import java.util.ArrayList;
 
 /**
- * Created by asbonato on 9/20/15.
+ * Created by Celso on 9/20/15.
  */
 public class ClienteDb {
     ClienteDbHelper dbHelper;
@@ -19,8 +19,10 @@ public class ClienteDb {
         dbHelper = new ClienteDbHelper(context);
     }
 
-    public void insereCor(ArrayList<Cliente> clientes){
+    public void insereClientes(ArrayList<Cliente> clientes){
         SQLiteDatabase db = dbHelper.getWritableDatabase();
+
+        db.delete(ClienteContract.ClienteEntry.TABLE_NAME,null,null);
 
         for(Cliente cliente:clientes) {
             ContentValues values = new ContentValues();

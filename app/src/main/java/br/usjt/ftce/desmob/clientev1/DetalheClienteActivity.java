@@ -1,23 +1,28 @@
 package br.usjt.ftce.desmob.clientev1;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
 import br.usjt.ftce.desmob.clientev1.model.Cliente;
 import br.usjt.ftce.desmob.clientev1.model.ClienteRequester;
+import br.usjt.ftce.desmob.clientev1.presenter.DetalheActivityPresenter;
+import br.usjt.ftce.desmob.clientev1.presenter.DetalheClientePresenter;
+import br.usjt.ftce.desmob.clientev1.view.DetalheView;
 
-public class DetalheClienteActivity extends Activity {
+public class DetalheClienteActivity extends Activity implements DetalheView {
     TextView textViewNome, textViewFone, textViewEmail;
     ImageView imagemCliente;
-    ClienteRequester clienteRequester;
     Cliente cliente;
+    DetalheClientePresenter detalhePresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,27 +38,25 @@ public class DetalheClienteActivity extends Activity {
         textViewEmail.setText(cliente.getEmail());
         textViewFone.setText(cliente.getFone());
 
-        clienteRequester = new ClienteRequester();
-        new DownloadImage().execute(MainActivity.SERVIDOR+
-                MainActivity.APLICACAO+"/img/"+cliente.getImagem()+".jpg");
-
+        detalhePresenter = new DetalheActivityPresenter(this);
+        detalhePresenter.carregaImagem(cliente);
     }
 
-    private class DownloadImage extends AsyncTask<String, Void, Bitmap> {
-
-        @Override
-        protected Bitmap doInBackground(String... strings) {
-            try {
-                return clienteRequester.getImage(strings[0]);
-            } catch (IOException e) {
-                e.printStackTrace();
-                return null;
-            }
-        }
-
-        public void onPostExecute(Bitmap result){
-            imagemCliente.setImageBitmap(result);
-        }
+    @Override
+    public void setImagem(Bitmap imagem) {
+        imagemCliente.setImageBitmap(imagem);
     }
+
+    @Override
+    public void mensagem(String mensagem) {
+        Toast toast = Toast.makeText(this,mensagem, Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+    @Override
+    public Context getContext() {
+        return this;
+    }
+
 }
 
